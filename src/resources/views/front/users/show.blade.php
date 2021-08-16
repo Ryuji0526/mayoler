@@ -17,8 +17,7 @@ $title = 'user';
             <div class="card mx-auto" style="max-width: 30rem;">
                 <div class="card-body">
                     <div class="col text-right small align-items-bottom">{{ $with_mayo->created_format }}</div>
-                    <div>{{ $with_mayo->title }}</div>
-                    <div>{{ $with_mayo->body }}</div>
+                    @include('front.with_mayos._post')
                     @if($user->id === Auth::id())
                         <div class="text-right">
                             {{ Form::model($with_mayo, [

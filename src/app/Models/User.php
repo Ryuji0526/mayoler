@@ -45,4 +45,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(WithMayo::class);
     }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
 }

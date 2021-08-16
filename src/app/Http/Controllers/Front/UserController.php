@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
 use App\Models\User;
 use App\Models\WithMayo;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -38,7 +39,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = \Auth::user();
+
+        return view('front.users.edit', compact('user'));
     }
 
     /**
@@ -48,8 +51,23 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $id)
     {
-        //
+        $user = \Auth::user();
+        $myEmail = \Auth::user()->email;
+
+        $request->validate([
+            'email' => [Rule::unique('users', 'email')->whereNot('email', $myEmail)]
+          ]);
+
+        if ($user->update($request->all())) {
+            $flash = ['success' => 'ユーザー情報を更新しました。'];
+        } else {
+            $flash = ['error' => 'ユーザー情報の更新に失敗しました'];
+        }
+     
+        return redirect()
+            ->route('front.users.show', $user->id)
+            ->with($flash);
     }
 }

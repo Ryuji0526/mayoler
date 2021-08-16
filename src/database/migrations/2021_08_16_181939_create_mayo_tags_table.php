@@ -22,8 +22,8 @@ class CreateMayoTagsTable extends Migration
 
         Schema::create('with_mayo_mayo_tag', function (Blueprint $table) {
             $table->increments('id');
-            $table->foreignId('with_mayo_id')->constrained();
-            $table->foreignId('mayo_tag_id')->constrained();
+            $table->foreignId('with_mayo_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('mayo_tag_id')->constrained()->cascadeOnDelete();
         });
     }
 

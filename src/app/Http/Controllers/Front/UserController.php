@@ -9,6 +9,11 @@ use App\Models\WithMayo;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+      $this->middleware(['auth', 'verified'])->only(['edit', 'update']);
+    }
+
     /**
      * Display the specified resource.
      *
@@ -20,7 +25,7 @@ class UserController extends Controller
         $user = User::find($id);
         $with_mayos = WithMayo::where('user_id', $id)
             ->orderBy('created_at', 'desc')
-            ->with('likes')
+            ->with(['likes', 'mayo_tags'])
             ->paginate(10);
         return view('front.users.show', compact('user', 'with_mayos'));
     }

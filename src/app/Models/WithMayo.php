@@ -38,6 +38,11 @@ class WithMayo extends Model
         return $this->hasMany(Like::class);
     }
 
+    public function mayo_tags()
+    {
+        return $this->belongsToMany(MayoTag::class, 'with_mayo_mayo_tag');
+    }
+
     public function scopePublic(Builder $query)
     {
         return $query->where('is_public', true);
@@ -53,9 +58,15 @@ class WithMayo extends Model
         return $query->with('likes');
     }
 
-    public function scopePublicList(Builder $query)
+    public function scopePublicList(Builder $query, string $mayo_tag_slug = null)
     {
+        if ($mayo_tag_slug) {
+            $query->whereHas('mayo_tags', function($query) use ($mayo_tag_slug) {
+                $query->where('slug', $mayo_tag_slug);
+            });
+        }
         return $query
+            ->with('mayo_tags')
             ->public()
             ->withUser()
             ->withLikes()

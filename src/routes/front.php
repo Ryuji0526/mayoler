@@ -11,3 +11,4 @@ Route::get('/', 'WithMayoController@index')->name('home');
 Route::resource('with_mayos', 'WithMayoController')->except(['edit','update', 'show']);
 Route::resource('users', 'UserController')->only(['show', 'edit', 'update']);
 Route::post('/like', 'LikeController@like')->name('like');
+Route::get('with_mayos/mayo_tag/{mayo_tag_slug}', 'WithMayoController@index')->where('mayo_tag_slug', '[a-z]+')->name('with_mayos.index.mayo_tag');

@@ -20,26 +20,26 @@
                     MAYOLER
                 </a>
                 <ul class="navbar-nav ml-auto d-md-flex d-none">
+                    @can('admin')
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>管理</a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('back.users.index') }}">Users</a>
+                            </div>
+                        </li>
+                    @endcan
                     @guest
-                    @if (Route::has('front.login'))
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('front.login') }}">Login</a>
-                    </li>
-                    @endif
-                    @if (Route::has('front.register'))
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('front.register') }}">Register</a>
-                    </li>
-                    @endif
-                    @else
-                        @can('admin')
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>管理</a>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('back.users.index') }}">Users</a>
-                                </div>
+                        @if (Route::has('front.login'))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('front.login') }}">Login</a>
                             </li>
-                        @endcan
+                        @endif
+                        @if (Route::has('front.register'))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('front.register') }}">Register</a>
+                            </li>
+                        @endif
+                    @else
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('front.with_mayos.create') }}">魅力を伝える(投稿)</a>
                         </li>

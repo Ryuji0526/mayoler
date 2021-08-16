@@ -1,5 +1,5 @@
 <?php
-$title = 'with_mayos';
+$title = 'WithMayos';
 ?>
 @extends('front.layouts.app')
 

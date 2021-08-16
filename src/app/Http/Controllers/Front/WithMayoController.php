@@ -52,7 +52,7 @@ class WithMayoController extends Controller
         if ($with_mayo) {
             return redirect()
                 ->route('front.with_mayos.index', $with_mayo)
-                ->withSuccess('皆さんに新たな明太マヨの素晴らしさを伝えました。');
+                ->withSuccess('皆さんに新たなマヨの素晴らしさを伝えました。');
         }else {
             return redirect()
                 ->route('front.with_mayos.create')

@@ -1,11 +1,18 @@
 <?php
-$title = 'user';
+$title = 'ユーザー詳細';
 ?>
 @extends('front.layouts.app')
  
 @section('content')
-<div>
-    <div class="card-body">{{ $user->name }}</div>
+<div class="card-body d-flex">
+    <span>
+        {{ $user->name }}
+    </span>
+    @if($user->id === Auth::id())
+        <span class="ml-auto">
+            {{ link_to_route('front.users.edit', '編集', $user->id, ['class' => 'nav-link py-0']) }}
+        </span>
+    @endif
 </div>
 <div class="card-body">
     @if($with_mayos->count() <= 0)

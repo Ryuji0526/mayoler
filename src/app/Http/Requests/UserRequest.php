@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class WithMayoRequest extends FormRequest
+class UserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,17 +24,17 @@ class WithMayoRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|max:20',
-            'body' => 'max:100',
-            'is_public' => 'numeric',
-            'mayo_tags.*' => 'numeric|exists:mayo_tags,id'
+            'name' => ['required', 'string', 'max:100'],
+            'email' => ['required', 'string', 'email', 'max:255'],
         ];
+    }
 
+    public function attributes()
+    {
         return [
-            'title' => 'マヨに合うもの',
-            'body' => 'その理由',
-            'is_public' => 'ステータス',
-            'mayo_tags.*' => 'タグ'
+            'name' => '名前',
+            'email' => 'メールアドレス',
+            'password' => 'パスワード',
         ];
     }
 }

@@ -9,6 +9,7 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
@@ -22,28 +23,28 @@
                     @guest
                         @if (Route::has('front.login'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('front.login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link" href="{{ route('front.login') }}">Login</a>
                             </li>
                         @endif
                         @if (Route::has('front.register'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('front.register') }}">{{ __('Register') }}</a>
+                                <a class="nav-link" href="{{ route('front.register') }}">Register'</a>
                             </li>
                         @endif
                     @else
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('front.with_mayos.create') }}">{{ __('魅力を伝える(投稿)') }}</a>
+                            <a class="nav-link" href="{{ route('front.with_mayos.create') }}">'魅力を伝える(投稿)'</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }}
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('front.users.show', Auth::id()) }}">{{ __('Profile') }}</a>
+                                <a class="dropdown-item" href="{{ route('front.users.show', Auth::id()) }}">Profile') }}</a>
                                 <a class="dropdown-item" href="{{ route('front.logout') }}"
                                     onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
+                                    Logout
                                 </a>
 
                                 <form id="logout-form" action="{{ route('front.logout') }}" method="POST" class="d-none">
@@ -63,27 +64,33 @@
                             @guest
                                 @if (Route::has('front.login'))
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('front.login') }}">{{ __('Login') }}</a>
+                                        <a class="nav-link" href="{{ url('/') }}">HOME</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('front.login') }}">Login</a>
                                     </li>
                                 @endif
                                 @if (Route::has('front.register'))
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('front.register') }}">{{ __('Register') }}</a>
+                                        <a class="nav-link" href="{{ route('front.register') }}">Register</a>
                                     </li>
                                 @endif
                             @else
                                 <h6 class="sidebar-heading mx-3 mt-3">{{ Auth::user()->name }}</h6>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('front.with_mayos.create') }}">{{ __('魅力を伝える') }}</a>
+                                    <a class="nav-link" href="{{ url('/') }}">HOME</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('front.users.show', Auth::id()) }}">{{ __('Profile') }}</a>
+                                    <a class="nav-link" href="{{ route('front.with_mayos.create') }}">魅力を伝える</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('front.users.show', Auth::id()) }}">Profile</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('front.logout') }}"
                                         onclick="event.preventDefault();
                                                         document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        Logout
                                     </a>
                                     <form id="logout-form" action="{{ route('front.logout') }}" method="POST" class="d-none">
                                         @csrf

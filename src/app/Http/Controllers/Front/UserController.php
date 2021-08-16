@@ -20,6 +20,7 @@ class UserController extends Controller
         $user = User::find($id);
         $with_mayos = WithMayo::where('user_id', $id)
             ->orderBy('created_at', 'desc')
+            ->with('likes')
             ->paginate(10);
         return view('front.users.show', compact('user', 'with_mayos'));
     }

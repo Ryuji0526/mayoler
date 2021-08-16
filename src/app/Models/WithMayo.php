@@ -33,6 +33,11 @@ class WithMayo extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
     public function scopePublic(Builder $query)
     {
         return $query->where('is_public', true);
@@ -43,11 +48,17 @@ class WithMayo extends Model
         return $query->with('user');
     }
 
+    public function scopeWithLikes(Builder $query)
+    {
+        return $query->with('likes');
+    }
+
     public function scopePublicList(Builder $query)
     {
         return $query
             ->public()
             ->withUser()
+            ->withLikes()
             ->latest('created_at')
             ->paginate(20);
     }
@@ -60,5 +71,21 @@ class WithMayo extends Model
     public function getCreatedFormatAttribute()
     {
         return $this->created_at->format('Y年m月d日');
+    }
+
+    public function is_liked_by_auth_user()
+    {
+        $id = \Auth::id();
+
+        $likers = array();
+        foreach($this->likes as $like) {
+            array_push($likers, $like->user_id);
+        }
+
+        if (in_array($id, $likers)) {
+            return true;
+          } else {
+            return false;
+          }
     }
 }

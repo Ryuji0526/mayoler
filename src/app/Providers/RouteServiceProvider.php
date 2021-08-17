@@ -47,7 +47,7 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace . '\Front')
                 ->as('front.')
                 ->group(base_path('routes/front.php'));
- 
+
             Route::prefix('admin')
                 ->middleware(['web', 'auth'])
                 ->namespace($this->namespace . '\Back')

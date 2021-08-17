@@ -11,7 +11,7 @@ class WithMayoController extends Controller
 {
     public function __construct()
     {
-      $this->middleware(['auth', 'verified'])->only(['store', 'destroy']);
+        $this->middleware(['auth', 'verified'])->only(['store', 'destroy']);
     }
 
     /**
@@ -53,7 +53,7 @@ class WithMayoController extends Controller
             return redirect()
                 ->route('front.with_mayos.index', $with_mayo)
                 ->withSuccess('皆さんに新たなマヨの素晴らしさを伝えました。');
-        }else {
+        } else {
             return redirect()
                 ->route('front.with_mayos.create')
                 ->withError('投稿に失敗しました。');
@@ -70,7 +70,7 @@ class WithMayoController extends Controller
     {
         $with_mayo->mayo_tags()->detach();
 
-        if($with_mayo->delete()) {
+        if ($with_mayo->delete()) {
             $flash = ['success' => '投稿を削除しました。'];
         } else {
             $flash = ['error' => '投稿の削除に失敗しました。'];

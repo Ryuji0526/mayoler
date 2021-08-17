@@ -13,7 +13,7 @@ class WithMayo extends Model
     protected $fillable = [
         'title', 'body', 'is_public'
     ];
-    
+
     protected $casts = [
         'is_public' => 'bool'
     ];
@@ -21,9 +21,8 @@ class WithMayo extends Model
     protected static function boot()
     {
         parent::boot();
-    
-        // 保存時user_idをログインユーザーに設定
-        self::saving(function($with_mayos) {
+
+        self::saving(function ($with_mayos) {
             $with_mayos->user_id = \Auth::id();
         });
     }
@@ -61,7 +60,7 @@ class WithMayo extends Model
     public function scopePublicList(Builder $query, string $mayo_tag_slug = null)
     {
         if ($mayo_tag_slug) {
-            $query->whereHas('mayo_tags', function($query) use ($mayo_tag_slug) {
+            $query->whereHas('mayo_tags', function ($query) use ($mayo_tag_slug) {
                 $query->where('slug', $mayo_tag_slug);
             });
         }
@@ -84,19 +83,19 @@ class WithMayo extends Model
         return $this->created_at->format('Y年m月d日');
     }
 
-    public function is_liked_by_auth_user()
+    public function isLikedByAuthUser()
     {
         $id = \Auth::id();
 
         $likers = array();
-        foreach($this->likes as $like) {
+        foreach ($this->likes as $like) {
             array_push($likers, $like->user_id);
         }
 
         if (in_array($id, $likers)) {
             return true;
-          } else {
+        } else {
             return false;
-          }
+        }
     }
 }

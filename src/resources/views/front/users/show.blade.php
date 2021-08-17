@@ -10,7 +10,7 @@ $title = 'ユーザー詳細';
     </span>
     @if($user->id === Auth::id())
         <span class="ml-auto">
-            {{ link_to_route('front.users.edit', '編集', $user->id, ['class' => 'nav-link py-0']) }}
+            {{ link_to_route('front.users.edit', '編集', Auth::id(), ['class' => 'nav-link py-0']) }}
         </span>
     @endif
 </div>

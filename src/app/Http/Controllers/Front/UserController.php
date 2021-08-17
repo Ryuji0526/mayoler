@@ -12,7 +12,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-      $this->middleware(['auth', 'verified'])->only(['edit', 'update']);
+        $this->middleware(['auth', 'verified'])->only(['edit', 'update']);
     }
 
     /**
@@ -65,7 +65,7 @@ class UserController extends Controller
         } else {
             $flash = ['error' => 'ユーザー情報の更新に失敗しました'];
         }
-     
+
         return redirect()
             ->route('front.users.show', $user->id)
             ->with($flash);

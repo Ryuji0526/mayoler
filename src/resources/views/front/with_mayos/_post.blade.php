@@ -6,7 +6,7 @@
 </div>
 <div>{{ $with_mayo->body }}</div>
 <div>
-    @if($with_mayo->is_liked_by_auth_user())
+    @if($with_mayo->isLikedByAuthUser())
       <div class="likes text-right">
         <i class="far fa-heart like-toggle liked" data-with-mayo-id="{{ $with_mayo->id }}"></i>
       <span class="like-counter">{{ $with_mayo->likes->count() }}</span>

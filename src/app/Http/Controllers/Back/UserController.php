@@ -28,7 +28,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        if($user->delete()) {
+        if ($user->delete()) {
             $flash = ['success' => 'ユーザーを削除しました。'];
         } else {
             $flash = ['error' => 'ユーザーの削除に失敗しました。'];

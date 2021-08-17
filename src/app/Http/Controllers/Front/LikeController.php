@@ -11,17 +11,17 @@ class LikeController extends Controller
 {
     public function __construct()
     {
-      $this->middleware(['auth', 'verified']);
+        $this->middleware(['auth', 'verified']);
     }
 
     public function like(Request $request)
     {
         $user_id = \Auth::id();
         $with_mayo_id = $request->with_mayo_id;
-        $already_liked = Like::where('user_id', $user_id)->where('with_mayo_id', $with_mayo_id)->first(); 
+        $already_liked = Like::where('user_id', $user_id)->where('with_mayo_id', $with_mayo_id)->first();
 
         if (!$already_liked) {
-            $like = new Like;
+            $like = new Like();
             $like->with_mayo_id = $with_mayo_id;
             $like->user_id = $user_id;
             $like->save();

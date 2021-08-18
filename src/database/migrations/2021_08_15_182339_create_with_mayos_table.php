@@ -18,7 +18,7 @@ class CreateWithMayosTable extends Migration
             $table->string('title');
             $table->text('body')->nullable();
             $table->boolean('is_public')->default(true);
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

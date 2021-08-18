@@ -45,4 +45,15 @@ class User extends Authenticatable
     {
         return $this->hasMany(WithMayo::class);
     }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public function isAdminOrSample()
+    {
+        $user = \Auth::user();
+        return $user->role === 1 || $user->email === 'nonadmin@mayoler.com';
+    }
 }

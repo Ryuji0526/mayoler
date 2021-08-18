@@ -27,12 +27,14 @@ class WithMayoRequest extends FormRequest
             'title' => 'required|max:20',
             'body' => 'max:100',
             'is_public' => 'numeric',
+            'mayo_tags.*' => 'numeric|exists:mayo_tags,id'
         ];
 
         return [
-            'title' => '明太マヨに合うもの',
+            'title' => 'マヨに合うもの',
             'body' => 'その理由',
             'is_public' => 'ステータス',
+            'mayo_tags.*' => 'タグ'
         ];
     }
 }

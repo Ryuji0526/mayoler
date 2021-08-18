@@ -13,7 +13,7 @@ class WithMayo extends Model
     protected $fillable = [
         'title', 'body', 'is_public'
     ];
-    
+
     protected $casts = [
         'is_public' => 'bool'
     ];
@@ -21,9 +21,8 @@ class WithMayo extends Model
     protected static function boot()
     {
         parent::boot();
-    
-        // 保存時user_idをログインユーザーに設定
-        self::saving(function($with_mayos) {
+
+        self::saving(function ($with_mayos) {
             $with_mayos->user_id = \Auth::id();
         });
     }
@@ -31,6 +30,16 @@ class WithMayo extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public function mayo_tags()
+    {
+        return $this->belongsToMany(MayoTag::class, 'with_mayo_mayo_tag');
     }
 
     public function scopePublic(Builder $query)
@@ -43,11 +52,23 @@ class WithMayo extends Model
         return $query->with('user');
     }
 
-    public function scopePublicList(Builder $query)
+    public function scopeWithLikes(Builder $query)
     {
+        return $query->with('likes');
+    }
+
+    public function scopePublicList(Builder $query, string $mayo_tag_slug = null)
+    {
+        if ($mayo_tag_slug) {
+            $query->whereHas('mayo_tags', function ($query) use ($mayo_tag_slug) {
+                $query->where('slug', $mayo_tag_slug);
+            });
+        }
         return $query
+            ->with('mayo_tags')
             ->public()
             ->withUser()
+            ->withLikes()
             ->latest('created_at')
             ->paginate(20);
     }
@@ -60,5 +81,21 @@ class WithMayo extends Model
     public function getCreatedFormatAttribute()
     {
         return $this->created_at->format('Y年m月d日');
+    }
+
+    public function isLikedByAuthUser()
+    {
+        $id = \Auth::id();
+
+        $likers = array();
+        foreach ($this->likes as $like) {
+            array_push($likers, $like->user_id);
+        }
+
+        if (in_array($id, $likers)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

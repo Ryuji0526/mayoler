@@ -12,6 +12,8 @@ RUN mv composer.phar /usr/local/bin/composer
 
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
 RUN apt-get install -y nodejs
+RUN npm install n -g 
+RUN n 14.17.5
 
 ENV COMPOSER_ALLOW_SUPERUSER 1
 

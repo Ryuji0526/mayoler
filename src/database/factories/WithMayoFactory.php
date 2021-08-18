@@ -26,7 +26,7 @@ class WithMayoFactory extends Factory
         return [
             'title' => $this->faker->realText(rand(10, 15)),
             'body' => $this->faker->realText(rand(10,100)),
-            'user_id' => $this->faker->numberBetween(1, 50),
+            'user_id' => $this->faker->numberBetween(1, 52),
             'created_at' => $random_date,
             'updated_at' => $random_date
         ];

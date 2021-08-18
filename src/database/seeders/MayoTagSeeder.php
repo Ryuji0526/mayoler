@@ -78,7 +78,7 @@ class MayoTagSeeder extends Seeder
         ]);
 
         $faker = Faker::create();
-        for ($i = 1; $i <= 200; $i++) {
+        for ($i = 1; $i <= 112; $i++) {
             \DB::table('with_mayo_mayo_tag')->insert([
                 'with_mayo_id' => $i,
                 'mayo_tag_id' => $faker->numberBetween(1,10)

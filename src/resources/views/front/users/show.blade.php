@@ -25,7 +25,7 @@ $title = 'ユーザー詳細';
                 <div class="card">
                     <div class="card-body">
                         <div class="col text-right small align-items-bottom">{{ $with_mayo->created_format }}</div>
-                        @include('front.with_mayos._post')
+                        @include('front.with_mayos._post', ['data' => $with_mayo])
                         @if($user->id === Auth::id())
                             <div class="text-right">
                                 {{ Form::model($with_mayo, [
@@ -44,7 +44,7 @@ $title = 'ユーザー詳細';
             @endforeach
         </div>
         <div class="d-flex justify-content-center">
-            {{ $with_mayos->links() }}
+            {!! $with_mayos->links() !!}
         </div>
   @endif
 </div>

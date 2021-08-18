@@ -1,20 +1,22 @@
 <div class="my-3 h5">
-  {{ $with_mayo->title }}
-  @foreach($with_mayo->mayo_tags as $mayo_tag)
-    <span class="badge badge-secondary">{{ $mayo_tag->name }}</span>
+  {!! $data->title !!}
+  @foreach($data->mayo_tags as $mayo_tag)
+    <span class="badge badge-secondary">{!! $mayo_tag->name !!}</span>
   @endforeach
 </div>
-<div>{{ $with_mayo->body }}</div>
+<div>{!! $data->body !!}</div>
 <div>
-    @if($with_mayo->isLikedByAuthUser())
-      <div class="likes text-right">
-        <i class="far fa-heart like-toggle liked" data-with-mayo-id="{{ $with_mayo->id }}"></i>
-      <span class="like-counter">{{ $with_mayo->likes->count() }}</span>
-      </div>
-    @else
-      <div class="likes text-right">
-        <i class="far fa-heart heart like-toggle" data-with-mayo-id="{{ $with_mayo->id }}"></i>
-      <span class="like-counter">{{ $with_mayo->likes->count() }}</span>
-      </div>
-    @endif
+    @auth
+        @if($data->isLikedByAuthUser())
+          <div class="likes text-right">
+            <i class="far fa-heart like-toggle liked" data-with-mayo-id="{!! $data->id !!}"></i>
+          <span class="like-counter">{!! $data->likes->count() !!}</span>
+          </div>
+        @else
+          <div class="likes text-right">
+            <i class="far fa-heart heart like-toggle" data-with-mayo-id="{!! $data->id !!}"></i>
+          <span class="like-counter">{!! $data->likes->count() !!}</span>
+          </div>
+        @endif
+    @endauth
 </div>
